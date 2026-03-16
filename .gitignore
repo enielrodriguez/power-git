@@ -1,0 +1,8 @@
+# PowerShell artifacts
+*.pdb
+
+# VS Code
+.vscode/
+
+# Pester test results
+TestResults.xml
