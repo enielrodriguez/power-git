@@ -1,8 +1,12 @@
 # PowerShell artifacts
 *.pdb
 
-# VS Code
+# MkDocs build directory
+site/
+
+# Local IDE / Assistant settings
 .vscode/
+.claude/
 
 # Pester test results
 TestResults.xml

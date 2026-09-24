@@ -48,8 +48,8 @@
     PrivateData = @{
         PSData = @{
             Tags         = @('git', 'prompt', 'tab-completion', 'vcs', 'terminal')
-            ProjectUri   = 'https://github.com/YOUR_USERNAME/power-git'
-            LicenseUri   = 'https://github.com/YOUR_USERNAME/power-git/blob/main/LICENSE'
+            ProjectUri   = 'https://github.com/power-git/power-git'
+            LicenseUri   = 'https://github.com/power-git/power-git/blob/main/LICENSE'
             ReleaseNotes = @'
 ## 1.0.0
 - Initial release
