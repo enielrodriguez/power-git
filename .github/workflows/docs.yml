@@ -1,4 +1,4 @@
-name: Docs as Code CI
+name: Docs as Code (MkDocs & GitHub Pages)
 
 on:
   push:
@@ -15,10 +15,22 @@ on:
       - 'mkdocs.yml'
       - 'README.md'
       - '.github/workflows/docs.yml'
+  workflow_dispatch:
+
+# Permissions for GitHub Pages deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Concurrency group for GitHub Pages
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  build-docs:
-    name: Validate and Build Documentation
+  build:
+    name: Build Documentation
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -34,6 +46,25 @@ jobs:
           python -m pip install --upgrade pip
           pip install mkdocs mkdocs-material
 
-      - name: Build Documentation Site
+      - name: Build MkDocs Site
         run: |
-          mkdocs build --strict
+          mkdocs build --strict --site-dir site
+
+      - name: Upload GitHub Pages Artifact
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,8 +1,9 @@
 # power-git
 
-[![Docs as Code CI](https://github.com/power-git/power-git/actions/workflows/docs.yml/badge.svg)](https://github.com/power-git/power-git/actions/workflows/docs.yml)
+[![Docs Site](https://img.shields.io/badge/docs-GitHub%20Pages-blue.svg)](https://enielrodriguez.github.io/power-git/)
+[![Docs CI](https://github.com/enielrodriguez/power-git/actions/workflows/docs.yml/badge.svg)](https://github.com/enielrodriguez/power-git/actions/workflows/docs.yml)
 [![PowerShell Version](https://img.shields.io/badge/PowerShell-5.1%2B%20%7C%207%2B-blue.svg)](https://microsoft.com/powershell)
-[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey.svg)](https://github.com/power-git/power-git)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey.svg)](https://github.com/enielrodriguez/power-git)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 A fast, feature-rich Git prompt and tab-completion engine for **Windows PowerShell 5.1+** and **PowerShell 7+** across Windows, Linux, and macOS.

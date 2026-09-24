@@ -1,8 +1,9 @@
 site_name: power-git Documentation
 site_description: A fast, feature-rich Git prompt and tab-completion module for PowerShell 5.1+
-site_author: power-git contributors
-repo_name: power-git
-repo_url: https://github.com/power-git/power-git
+site_author: Eniel Rodriguez
+site_url: https://enielrodriguez.github.io/power-git/
+repo_name: enielrodriguez/power-git
+repo_url: https://github.com/enielrodriguez/power-git
 
 theme:
   name: material
