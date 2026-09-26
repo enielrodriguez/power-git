@@ -16,6 +16,8 @@ Learn how to install, import, and configure **power-git** in your PowerShell env
 
 ### Option 1: PowerShell Gallery (Recommended)
 
+`power-git` is available directly on the [PowerShell Gallery](https://www.powershellgallery.com/packages/power-git):
+
 ```powershell
 Install-Module power-git -Scope CurrentUser
 ```
@@ -24,7 +26,7 @@ Install-Module power-git -Scope CurrentUser
 
 1. Clone or download the repository into a directory named `power-git`:
    ```bash
-   git clone https://github.com/power-git/power-git.git power-git
+   git clone https://github.com/enielrodriguez/power-git.git power-git
    ```
 
 2. Copy the `power-git` directory into one of your `$env:PSModulePath` locations:

@@ -27,6 +27,8 @@ mkdocs build --strict
 - `src/GitStatus.ps1`: Status data model (`GitStatus`), porcelain v2 parser (`ConvertFrom-GitPorcelainV2`), and 500ms in-memory status cache.
 - `src/GitPrompt.ps1`: Prompt formatting engine (`Build-AnsiPrompt`, `Write-LegacyPrompt`).
 - `src/GitCompletion.ps1`: `Register-ArgumentCompleter` logic for 30+ subcommands & git aliases.
+- `.github/workflows/publish.yml`: CI/CD workflow to stage and publish module releases to PowerShell Gallery.
+- `.github/workflows/docs.yml`: MkDocs documentation build and GitHub Pages deployment workflow.
 
 ## Code Style & Critical Constraints
 1. **Dual PowerShell Target**: Code MUST run on both PowerShell 5.1 (Windows PowerShell) and PowerShell 7+ (Core).
@@ -34,3 +36,4 @@ mkdocs build --strict
 3. **Single Porcelain Call**: Prompt generation MUST rely on a single `git status --porcelain=v2 --branch` invocation. Do NOT add extra `git` subprocess spawns in prompt rendering loops.
 4. **Platform Checks**: Guard Windows-specific API calls (P/Invoke to `kernel32.dll` or registry access) with `[System.Environment]::OSVersion.Platform -eq [System.PlatformID]::Win32NT`.
 5. **Prompt Hook Safety**: Never crash the user prompt. Always catch prompt errors and fall back to original prompt.
+6. **Release Protocol**: PowerShell Gallery releases are immutable. To release, bump `ModuleVersion` in `power-git.psd1`, update `ReleaseNotes`, and publish a GitHub release matching the version tag (`vX.Y.Z`).

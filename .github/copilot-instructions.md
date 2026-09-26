@@ -41,3 +41,13 @@ Always verify changes by executing the module under PowerShell 7 (`pwsh`):
 ```powershell
 pwsh -NoProfile -Command "Import-Module ./power-git.psd1; Test-PowerGit"
 ```
+
+---
+
+## 🚀 Release & Publishing Protocol
+
+- **PowerShell Gallery Version Immutability**: Published gallery packages cannot be overwritten.
+- **Release Bumps**: Always increment `ModuleVersion` and update `ReleaseNotes` in `power-git.psd1` for each release.
+- **Automated Deployment**: Deployment to PowerShell Gallery is automated via GitHub Releases through `.github/workflows/publish.yml`.
+- **Clean Packaging**: Only runtime module files (`power-git.psd1`, `power-git.psm1`, `LICENSE`, `README.md`, `src/`) should be staged and published (excluding repository metadata, git history, and docs sources).
+

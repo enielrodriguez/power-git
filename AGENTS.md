@@ -33,6 +33,12 @@ The foundational principle of this project is **zero prompt lag**. All AI agents
      pwsh -NoProfile -Command "Import-Module ./power-git.psd1; Test-PowerGit"
      ```
 
+6. **PowerShell Gallery Release & Version Immutability**:
+   - Versions published to the PowerShell Gallery are immutable and cannot be overwritten.
+   - For every new release, increment `ModuleVersion` and append corresponding notes in `ReleaseNotes` in [power-git.psd1](file:///home/eniel/Downloads/dev/power-git/power-git.psd1).
+   - Automated deployment is triggered via GitHub Releases (`release: [published]`) through [.github/workflows/publish.yml](file:///home/eniel/Downloads/dev/power-git/.github/workflows/publish.yml).
+   - Staging must strictly isolate runtime module files (`power-git.psd1`, `power-git.psm1`, `LICENSE`, `README.md`, `src/`) to prevent repository metadata, git history, or documentation sources from leaking into the distribution package.
+
 ---
 
 ## 📁 Codebase Map
@@ -44,5 +50,7 @@ The foundational principle of this project is **zero prompt lag**. All AI agents
 - [src/GitStatus.ps1](file:///home/eniel/Downloads/dev/power-git/src/GitStatus.ps1): Status object model (`GitStatus`), porcelain v2 parser, and 500ms status cache engine.
 - [src/GitPrompt.ps1](file:///home/eniel/Downloads/dev/power-git/src/GitPrompt.ps1): Prompt formatting engine (ANSI & Legacy modes).
 - [src/GitCompletion.ps1](file:///home/eniel/Downloads/dev/power-git/src/GitCompletion.ps1): Native argument completer (`Register-ArgumentCompleter`) for 30+ git subcommands & git aliases.
+- [.github/workflows/publish.yml](file:///home/eniel/Downloads/dev/power-git/.github/workflows/publish.yml): Automated CI/CD release workflow for PowerShell Gallery.
+- [.github/workflows/docs.yml](file:///home/eniel/Downloads/dev/power-git/.github/workflows/docs.yml): MkDocs build & GitHub Pages deployment workflow.
 - [docs/](file:///home/eniel/Downloads/dev/power-git/docs/index.md): Docs as Code documentation suite.
 - [mkdocs.yml](file:///home/eniel/Downloads/dev/power-git/mkdocs.yml): MkDocs configuration file.
