@@ -1,5 +1,7 @@
 # PowerShell artifacts
 *.pdb
+dist/
+out/
 
 # MkDocs build directory
 site/

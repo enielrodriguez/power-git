@@ -1,0 +1,79 @@
+name: Publish to PowerShell Gallery
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (test staging & validate with -WhatIf without publishing)'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: 'psgallery-publish'
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish Module
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Run Module Diagnostics
+        shell: pwsh
+        run: |
+          Write-Host "Verifying power-git in pwsh..." -ForegroundColor Cyan
+          Import-Module ./power-git.psd1
+          Test-PowerGit
+
+      - name: Stage Clean Distribution Package
+        shell: pwsh
+        run: |
+          $stagingDir = "./dist/power-git"
+          if (Test-Path $stagingDir) {
+              Remove-Item -Recurse -Force $stagingDir
+          }
+          New-Item -ItemType Directory -Path $stagingDir -Force | Out-Null
+
+          # Copy only runtime files (omit git history, docs sources, dev configs)
+          Copy-Item "./power-git.psd1", "./power-git.psm1", "./LICENSE", "./README.md" -Destination $stagingDir
+          Copy-Item "./src" -Destination $stagingDir -Recurse
+
+          # Validate staged manifest
+          $manifest = Test-ModuleManifest "$stagingDir/power-git.psd1"
+          Write-Host "Staged module: $($manifest.Name) v$($manifest.Version)" -ForegroundColor Green
+          Get-ChildItem -Path $stagingDir -Recurse | Select-Object FullName
+
+      - name: Publish to PowerShell Gallery
+        shell: pwsh
+        env:
+          PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
+          IS_DRY_RUN: ${{ github.event.inputs.dry_run }}
+        run: |
+          $stagingDir = "./dist/power-git"
+          $isDryRun = ($env:IS_DRY_RUN -eq 'true')
+
+          if (-not $env:PSGALLERY_API_KEY) {
+              throw "PSGALLERY_API_KEY secret is not set or empty in repository secrets."
+          }
+
+          if ($isDryRun) {
+              Write-Host "Executing Publish-Module in dry-run mode (-WhatIf)..." -ForegroundColor Yellow
+              Publish-Module -Path $stagingDir -NuGetApiKey $env:PSGALLERY_API_KEY -WhatIf -Verbose
+          } else {
+              Write-Host "Publishing power-git to PowerShell Gallery..." -ForegroundColor Green
+              Publish-Module -Path $stagingDir -NuGetApiKey $env:PSGALLERY_API_KEY -Verbose
+              Write-Host "Publish completed successfully!" -ForegroundColor Green
+          }
