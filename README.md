@@ -72,21 +72,24 @@ Comprehensive documentation is maintained directly alongside the codebase in the
 # 1. Install from PowerShell Gallery (https://www.powershellgallery.com/packages/power-git)
 Install-Module power-git -Scope CurrentUser
 
-# 2. Import module into your current session
+# 2. Auto-load power-git on every PowerShell startup (recommended)
+Add-PowerGitToProfile
+
+# 3. Activate immediately in your current session
 Import-Module power-git
 
-# 3. Choose a theme
+# 4. Choose a theme
 Set-GitTheme Default      # Unicode symbols (works with standard fonts)
 Set-GitTheme Minimal      # Compact ASCII
 Set-GitTheme ASCII        # Pure 7-bit ASCII
 Set-GitTheme Powerline    # Nerd Font glyphs
 
-# 4. Auto-load power-git on every PowerShell startup
-Add-PowerGitToProfile
-
 # 5. Run diagnostics
 Test-PowerGit
 ```
+
+> [!TIP]
+> **Activation Note**: In PowerShell, `Install-Module` only downloads files to disk. Run `Add-PowerGitToProfile` once to automatically load `power-git` whenever you open a new terminal, and `Import-Module power-git` to activate it in your current terminal session immediately.
 
 ---
 

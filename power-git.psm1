@@ -282,6 +282,10 @@ function Add-PowerGitToProfile {
         if ($PSCmdlet.ShouldProcess($profilePath, 'Create profile and add power-git import')) {
             $null = New-Item -ItemType File -Path $profilePath -Force
             Add-Content -Path $profilePath -Value $importLine
+            Write-Host "power-git: Created profile and added import to '$profilePath'."
+            if (-not (Get-Module -Name 'power-git' -ErrorAction SilentlyContinue)) {
+                Write-Host "power-git: Tip: Run 'Import-Module power-git' to activate it in your current session without restarting."
+            }
         }
         return
     }
@@ -295,6 +299,9 @@ function Add-PowerGitToProfile {
     if ($PSCmdlet.ShouldProcess($profilePath, 'Add power-git import')) {
         Add-Content -Path $profilePath -Value "`n$importLine"
         Write-Host "power-git: Added import to '$profilePath'."
+        if (-not (Get-Module -Name 'power-git' -ErrorAction SilentlyContinue)) {
+            Write-Host "power-git: Tip: Run 'Import-Module power-git' to activate it in your current session without restarting."
+        }
     }
 }
 

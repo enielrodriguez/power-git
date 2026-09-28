@@ -22,6 +22,11 @@ Learn how to install, import, and configure **power-git** in your PowerShell env
 Install-Module power-git -Scope CurrentUser
 ```
 
+> [!NOTE]
+> `Install-Module` only downloads the module files to your machine.
+> * To **activate immediately** in your current session: `Import-Module power-git`
+> * To **enable permanently** on every shell launch: `Add-PowerGitToProfile`
+
 ### Option 2: Manual Installation
 
 1. Clone or download the repository into a directory named `power-git`:

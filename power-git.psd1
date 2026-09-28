@@ -1,6 +1,6 @@
 @{
     # Module identity
-    ModuleVersion     = '1.0.0'
+    ModuleVersion     = '1.0.1'
     GUID              = 'a7f3c2e1-4b8d-4f9a-b6d5-1c2e3f4a5b6c'
     Author            = 'power-git contributors'
     Description       = 'A fast, feature-rich Git prompt and tab completion module for PowerShell 5.1+'
@@ -51,6 +51,10 @@
             ProjectUri   = 'https://github.com/enielrodriguez/power-git'
             LicenseUri   = 'https://github.com/enielrodriguez/power-git/blob/main/LICENSE'
             ReleaseNotes = @'
+## 1.0.1
+- Improved Add-PowerGitToProfile with creation status feedback and actionable current-session tip
+- Enhanced Quick Start and troubleshooting documentation for new module installations
+
 ## 1.0.0
 - Initial release
 - Single-call status via git porcelain v2 (faster than posh-git's multiple calls)

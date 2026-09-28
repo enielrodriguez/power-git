@@ -16,7 +16,32 @@ Test-PowerGit
 
 ## ❓ Frequently Asked Questions
 
-### 1. Powerline theme characters display as broken boxes (`[?]` or `□`)
+### 1. The prompt did not change after running `Install-Module`
+
+**Cause**: In PowerShell, `Install-Module` only downloads the module files to your machine. It does not import the module into your active terminal session or configure shell startup automatically.
+
+**Solution**:
+1. **Activate immediately in current session**:
+   ```powershell
+   Import-Module power-git
+   ```
+2. **Auto-load on startup**: Add the module to your `$PROFILE` so it activates in every new PowerShell window:
+   ```powershell
+   Add-PowerGitToProfile
+   ```
+3. **Verify with diagnostics**:
+   ```powershell
+   Test-PowerGit
+   ```
+4. **Execution Policy (Windows)**: If your profile cannot be loaded due to script execution restrictions, allow local scripts:
+   ```powershell
+   Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+   ```
+5. **Using Oh My Posh or Starship?** Ensure `Import-Module power-git` appears **after** their initialization lines in `$PROFILE` so `power-git` can wrap around the prompt.
+
+---
+
+### 2. Powerline theme characters display as broken boxes (`[?]` or `□`)
 
 **Cause**: The Powerline theme requires a installed [Nerd Font](https://www.nerdfonts.com/).
 
@@ -29,7 +54,7 @@ Test-PowerGit
 
 ---
 
-### 2. Colors look dull or raw escape codes (`^[32m`) are visible in Windows Console
+### 3. Colors look dull or raw escape codes (`^[32m`) are visible in Windows Console
 
 **Cause**: ANSI virtual terminal processing is disabled in classic Windows ConsoleHost.
 
@@ -42,7 +67,7 @@ $global:PowerGitSettings.WriterMode = 'Legacy'
 
 ---
 
-### 3. Prompt is slow in large monorepos
+### 4. Prompt is slow in large monorepos
 
 **Cause**: Scanning thousands of untracked or modified files in massive monorepos can take time.
 
@@ -57,7 +82,7 @@ This retains branch name and ahead/behind status while bypassing file enumeratio
 
 ---
 
-### 4. Reverting to original prompt
+### 5. Reverting to original prompt
 
 To turn off `power-git` prompt integration without removing the module:
 
